@@ -43,6 +43,20 @@ class KabupatenController extends Controller
         $search = Yii::$app->request->queryParams;
         $query = Kabupaten::find()
                 ->joinWith('provinsi');
+        
+        $dataProvider = new ActiveDataProvider([
+            'query'=> $query,
+        ]);
+        
+        $session = Yii::$app->session;
+        // check if a session is already open
+        if (!$session->isActive){
+            $session->open();// open a session
+        } 
+        // save query here
+        $session['repquery'] = Yii::$app->request->queryParams;
+        
+        
 
         if(!empty($search['id_prov'])){
         $query->andFilterWhere(['like','provinsi.nama_prov',$search['id_prov']]);
@@ -56,12 +70,11 @@ class KabupatenController extends Controller
         }
 
 
-        $dataProvider = new ActiveDataProvider([
-            'query'=> $query,
-        ]);
+        
+
 
         return $this->render('index', [
-            // 'searchModel' => $searchModel,
+            'search' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -152,15 +165,9 @@ class KabupatenController extends Controller
 	*/
     public function actionExportPdf()
     {
-        // $search = Yii::$app->request->queryParams;
-        // $query = Kabupaten::find()
-        //         ->joinWith('provinsi');
-        // $dataProvider = new ActiveDataProvider([
-        //             'query'=> $query,
-        //         ]);
         $searchModel = new KabupatenSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $html = $this->renderPartial('lap_kab',['dataProvider'=>$dataProvider]);
+        $dataProvider = $searchModel->search(Yii::$app->session->get('repquery'));
+        $html = $this->renderPartial('lapKab',['dataProvider'=>$dataProvider]);
         // $mpdf=new \mPDF('c','A4','','' , 0 , 0 , 0 , 0 , 0 , 0);  
         $mpdf=new \Mpdf\Mpdf();  
         $mpdf->SetDisplayMode('fullpage');

@@ -39,6 +39,15 @@ class ProvinsiController extends Controller
         $searchModel = new ProvinsiSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $session = Yii::$app->session;
+        // check if a session is already open
+        if (!$session->isActive){
+            $session->open();// open a session
+        } 
+        // save query here
+        $session['repquery'] = Yii::$app->request->queryParams;
+    
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -132,8 +141,8 @@ class ProvinsiController extends Controller
     public function actionExportPdf()
     {
         $searchModel = new ProvinsiSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $html = $this->renderPartial('lap_provinsi',['dataProvider'=>$dataProvider]);
+        $dataProvider = $searchModel->search(Yii::$app->session->get('repquery'));
+        $html = $this->renderPartial('lapProvinsi',['dataProvider'=>$dataProvider]);
         // $mpdf=new \mPDF('c','A4','','' , 0 , 0 , 0 , 0 , 0 , 0);         
         $mpdf=new \Mpdf\Mpdf();  
         $mpdf->SetDisplayMode('fullpage');

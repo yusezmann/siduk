@@ -16,16 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Tambah Provinsi', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Export PDF', ['export-pdf'], ['class'=>'btn btn-info']); ?>  
-
-    <?php
-        // echo Html::a('<i class="fa far fa-hand-point-up"></i> Privacy Statement', ['/provinsi/lap_provinsi'], [
-        //     'class'=>'btn btn-danger', 
-        //     'target'=>'_blank', 
-        //     'data-toggle'=>'tooltip', 
-        //     'title'=>'Will open the generated PDF file in a new window'
-        // ]);
-    ?>
+        <?= Html::a('Export PDF', ['export-pdf'], ['class'=>'btn btn-danger']); ?>  
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
