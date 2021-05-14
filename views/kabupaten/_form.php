@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
 <div class="kabupaten-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
     <?php
         $dataPost=ArrayHelper::map(\app\models\provinsi::find()->asArray()->all(), 'id_prov', 'nama_prov');
         echo $form->field($model, 'id_prov')

@@ -17,7 +17,7 @@ class ProvinsiSearch extends Provinsi
     public function rules()
     {
         return [
-            [['id_prov', 'id_kab'], 'integer'],
+            [['id_prov'], 'integer'],
             [['nama_prov'], 'safe'],
         ];
     }
@@ -59,7 +59,6 @@ class ProvinsiSearch extends Provinsi
         // grid filtering conditions
         $query->andFilterWhere([
             'id_prov' => $this->id_prov,
-            'id_kab' => $this->id_kab,
         ]);
 
         $query->andFilterWhere(['like', 'nama_prov', $this->nama_prov]);

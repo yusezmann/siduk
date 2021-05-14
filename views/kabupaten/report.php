@@ -30,19 +30,20 @@
         <h1>Data Kabupaten</h1>
         <table border="0">
         <tr>
-                <th>ID Kabupaten</th>
+                <th>No</th>
+                <th>Nama Provinsi</th>
                 <th>Nama Kabupaten</th>
                 <th>Jumlah Penduduk</th>
-                <th>Provinsi</th>
         </tr>
         <?php
+        $no = 1;
         foreach($dataProvider->getModels() as $kab){ 
         ?>
         <tr>
-                <td><?= $kab->id_kab ?></td>
+                <td><?= $no++  ?></td>
+                <td><?= $kab->idprov0->nama_prov ?></td>
                 <td><?= $kab->nama_kab ?></td>
                 <td><?= $kab->jmlh_penduduk ?></td>
-                <td><?= $kab->provinsi->nama_prov ?></td>
         </tr>
         <?php
         }

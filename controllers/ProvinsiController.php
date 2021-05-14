@@ -8,7 +8,6 @@ use app\models\ProvinsiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use kartik\mpdf\Pdf;
 
 /**
  * ProvinsiController implements the CRUD actions for Provinsi model.
@@ -46,7 +45,6 @@ class ProvinsiController extends Controller
         } 
         // save query here
         $session['repquery'] = Yii::$app->request->queryParams;
-    
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -134,7 +132,7 @@ class ProvinsiController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    
+
     /*
 	EXPORT WITH MPDF
 	*/
@@ -142,14 +140,14 @@ class ProvinsiController extends Controller
     {
         $searchModel = new ProvinsiSearch();
         $dataProvider = $searchModel->search(Yii::$app->session->get('repquery'));
-        $html = $this->renderPartial('lapProvinsi',['dataProvider'=>$dataProvider]);
-        // $mpdf=new \mPDF('c','A4','','' , 0 , 0 , 0 , 0 , 0 , 0);         
+        $html = $this->renderPartial('report',['dataProvider'=>$dataProvider]);
+        // $mpdf=new \mPDF('c','A4','','' , 0 , 0 , 0 , 0 , 0 , 0);  
         $mpdf=new \Mpdf\Mpdf();  
         $mpdf->SetDisplayMode('fullpage');
+        $mpdf->showImageErrors = true;
         $mpdf->list_indent_first_level = 0;  // 1 or 0 - whether to indent the first level of a list
         $mpdf->WriteHTML($html);
         $mpdf->Output();
         exit;
     }
-    
 }

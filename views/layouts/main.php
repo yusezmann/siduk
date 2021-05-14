@@ -41,14 +41,14 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Provinsi', 'url' => ['/provinsi/index']],
             ['label' => 'Kabupaten', 'url' => ['/kabupaten/index']],
-            [ 
-                'label'=> 'Laporan',
-                'items' => [
-                    ['label' => 'Provinsi', 'url' => ['/provinsi/index']],
-                    '<li class="divider"></li>',
-                    ['label' => 'Kabupaten', 'url' => ['/kabupaten/index']],
-               ],
-            ],
+            // [ 
+            //     'label'=> 'Laporan',
+            //     'items' => [
+            //         ['label' => 'Provinsi', 'url' => ['/provinsi/index']],
+            //         '<li class="divider"></li>',
+            //         ['label' => 'Kabupaten', 'url' => ['/kabupaten/index']],
+            //    ],
+            // ],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (

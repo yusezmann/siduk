@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ProvinsiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Provinsi';
+$this->title = 'Provinsis';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="provinsi-index">
@@ -15,8 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Tambah Provinsi', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Export PDF', ['export-pdf'], ['class'=>'btn btn-danger']); ?>  
+        <?= Html::a('Create Provinsi', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -29,11 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id_prov',
             'nama_prov',
-            [
-                'label'=> 'Jumlah Penduduk',
-                'attribute'=>'jmlh_penduduk',
-                'value'=>'prov.jmlh_penduduk',
-            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

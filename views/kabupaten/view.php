@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\widgets\PrintThis;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Kabupaten */
@@ -15,8 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="kabupaten-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-   
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id_kab], ['class' => 'btn btn-primary']) ?>
@@ -35,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_kab',
             'nama_kab',
             'jmlh_penduduk',
-            'provinsi.nama_prov',
+            'idprov0.nama_prov',
         ],
     ]) ?>
 

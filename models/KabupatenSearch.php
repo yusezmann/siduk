@@ -17,8 +17,8 @@ class KabupatenSearch extends Kabupaten
     public function rules()
     {
         return [
-            [['id_kab', 'jmlh_penduduk', 'id_prov'], 'integer'],
-            [['nama_kab'], 'safe'],
+            [['id_kab', 'jmlh_penduduk'], 'integer'],
+            [['nama_kab', 'id_prov'], 'safe'],
         ];
     }
 
@@ -40,7 +40,8 @@ class KabupatenSearch extends Kabupaten
      */
     public function search($params)
     {
-        $query = Kabupaten::find();
+        $query = Kabupaten::find()
+        ->joinWith('idprov0');
 
         // add conditions that should always apply here
 
@@ -60,10 +61,10 @@ class KabupatenSearch extends Kabupaten
         $query->andFilterWhere([
             'id_kab' => $this->id_kab,
             'jmlh_penduduk' => $this->jmlh_penduduk,
-            'id_prov' => $this->id_prov,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_kab', $this->nama_kab]);
+        $query->andFilterWhere(['like', 'nama_kab', $this->nama_kab])
+        ->andFilterWhere(['like', 'nama_prov', $this->id_prov]);
 
         return $dataProvider;
     }

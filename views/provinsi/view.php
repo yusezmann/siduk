@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Provinsi */
 
 $this->title = $model->id_prov;
-$this->params['breadcrumbs'][] = ['label' => 'Provinsi', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Provinsis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id_prov',
             'nama_prov',
-            'id_kab',
         ],
     ]) ?>
 

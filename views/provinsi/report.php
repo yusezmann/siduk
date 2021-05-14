@@ -35,12 +35,12 @@
                 <th>Jumlah Penduduk</th>
         </tr>
         <?php
-        foreach($dataProvider->getModels() as $prov){ 
+        foreach($dataProvider->getModels() as $provs){ 
         ?>
         <tr>
-                <td><?= $prov->id_prov ?></td>
-                <td><?= $prov->nama_prov ?></td>
-                <td><?= $prov->prov->jmlh_penduduk ?></td>
+                <td><?= $provs->id_prov ?></td>
+                <td><?= $provs->nama_prov ?></td>
+                <td><?= $provs->kab->jmlh_penduduk ?></td>
         </tr>
         <?php
         }

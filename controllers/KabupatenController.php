@@ -5,7 +5,6 @@ namespace app\controllers;
 use Yii;
 use app\models\Kabupaten;
 use app\models\KabupatenSearch;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,18 +35,9 @@ class KabupatenController extends Controller
      */
     public function actionIndex()
     {
-        // $searchModel = new KabupatenSearch();
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+        $searchModel = new KabupatenSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $search = Yii::$app->request->queryParams;
-        $query = Kabupaten::find()
-                ->joinWith('provinsi');
-        
-        $dataProvider = new ActiveDataProvider([
-            'query'=> $query,
-        ]);
-        
         $session = Yii::$app->session;
         // check if a session is already open
         if (!$session->isActive){
@@ -55,26 +45,9 @@ class KabupatenController extends Controller
         } 
         // save query here
         $session['repquery'] = Yii::$app->request->queryParams;
-        
-        
-
-        if(!empty($search['id_prov'])){
-        $query->andFilterWhere(['like','provinsi.nama_prov',$search['id_prov']]);
-        }
-        
-        if(!empty($search['nama_kab'])){
-        $query->andFilterWhere(['like','nama_kab',$search['nama_kab']]);
-        }
-        if(!empty($search['jmlh_penduduk'])){
-        $query->andFilterWhere(['like','jmlh_penduduk',$search['jmlh_penduduk']]);
-        }
-
-
-        
-
 
         return $this->render('index', [
-            'search' => $searchModel,
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -167,7 +140,7 @@ class KabupatenController extends Controller
     {
         $searchModel = new KabupatenSearch();
         $dataProvider = $searchModel->search(Yii::$app->session->get('repquery'));
-        $html = $this->renderPartial('lapKab',['dataProvider'=>$dataProvider]);
+        $html = $this->renderPartial('report',['dataProvider'=>$dataProvider]);
         // $mpdf=new \mPDF('c','A4','','' , 0 , 0 , 0 , 0 , 0 , 0);  
         $mpdf=new \Mpdf\Mpdf();  
         $mpdf->SetDisplayMode('fullpage');

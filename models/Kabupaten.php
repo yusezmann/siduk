@@ -11,6 +11,8 @@ use Yii;
  * @property string $nama_kab
  * @property int $jmlh_penduduk
  * @property int $id_prov
+ *
+ * @property Provinsi $id_prov0
  */
 class Kabupaten extends \yii\db\ActiveRecord
 {
@@ -31,6 +33,7 @@ class Kabupaten extends \yii\db\ActiveRecord
             [['nama_kab', 'jmlh_penduduk', 'id_prov'], 'required'],
             [['jmlh_penduduk', 'id_prov'], 'integer'],
             [['nama_kab'], 'string', 'max' => 50],
+            [['id_prov'], 'exist', 'skipOnError' => true, 'targetClass' => Provinsi::className(), 'targetAttribute' => ['id_prov' => 'id_prov']],
         ];
     }
 
@@ -40,15 +43,20 @@ class Kabupaten extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_kab' => 'ID Kabupaten',
-            'nama_kab' => 'Nama Kabupaten',
-            'jmlh_penduduk' => 'Jumlah Penduduk',
-            'id_prov' => 'Provinsi',
+            'id_kab' => 'Id Kab',
+            'nama_kab' => 'Nama Kab',
+            'jmlh_penduduk' => 'Jmlh Penduduk',
+            'id_prov' => 'Idprov',
         ];
     }
 
-    public function getProvinsi()
+    /**
+     * Gets query for [[Idprov0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIdprov0()
     {
-        return $this->hasOne(provinsi::className(), ['id_prov' => 'id_prov']);
+        return $this->hasOne(Provinsi::className(), ['id_prov' => 'id_prov']);
     }
 }

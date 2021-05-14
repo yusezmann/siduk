@@ -9,9 +9,8 @@ use Yii;
  *
  * @property int $id_prov
  * @property string $nama_prov
- * @property int $id_kab
  *
- * @property Kabupaten $prov
+ * @property Kabupaten[] $kabupatens
  */
 class Provinsi extends \yii\db\ActiveRecord
 {
@@ -29,10 +28,8 @@ class Provinsi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_prov', 'id_kab'], 'required'],
-            [['id_kab'], 'integer'],
+            [['nama_prov'], 'required'],
             [['nama_prov'], 'string', 'max' => 50],
-            [['id_prov'], 'exist', 'skipOnError' => true, 'targetClass' => Kabupaten::className(), 'targetAttribute' => ['id_prov' => 'id_kab']],
         ];
     }
 
@@ -44,17 +41,16 @@ class Provinsi extends \yii\db\ActiveRecord
         return [
             'id_prov' => 'Id Prov',
             'nama_prov' => 'Nama Prov',
-            'id_kab' => 'Jumlah Penduduk',
         ];
     }
 
     /**
-     * Gets query for [[Prov]].
+     * Gets query for [[Kabupatens]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProv()
+    public function getKab()
     {
-        return $this->hasOne(Kabupaten::className(), ['id_kab' => 'id_prov']);
+        return $this->hasOne(Kabupaten::className(), ['id_prov' => 'id_prov']);
     }
 }
